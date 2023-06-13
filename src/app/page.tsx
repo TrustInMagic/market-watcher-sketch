@@ -5,6 +5,8 @@ import Account from '@/components/Account';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Volume from '@/components/Volume';
 import BalanceTable from '@/components/BalanceTable';
+import CandleChart from '@/components/CandleChart';
+import { Button } from '@mui/material';
 import {
   mockClientId,
   mockTotalPL,
@@ -24,7 +26,7 @@ const App = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <Header clientID={mockClientId} />
-      <div className='grid grid-rows-2 grid-cols-2'>
+      <div className='grid auto-cols-auto grid-cols-2'>
         <div className='row-span-1 col-span-1 border-b border-slate-500 p-2'>
           {accounts.map((account) => (
             <Account number={account.id} key={account.id} />
@@ -42,9 +44,19 @@ const App = () => {
             </span>
           </div>
         </div>
-        <div className='row-start-2 p-2'>
-          <BalanceTable accounts={accounts}/>
+        <div className='row-start-2 p-2 border-b border-slate-500'>
+          <BalanceTable accounts={accounts} />
         </div>
+        <div className='col-start-2 col-end-3 row-start-1 row-end-3'>
+          <CandleChart />
+        </div>
+        <Button
+          variant='contained'
+          disableElevation
+          className='bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded mt-2'
+        >
+          Start Trades
+        </Button>
       </div>
     </ThemeProvider>
   );

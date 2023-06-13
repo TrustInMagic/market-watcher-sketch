@@ -56,7 +56,7 @@ const BalanceTable = ({ accounts }: { accounts: Account[] }) => {
   const rows: RowData[] = accounts.map((account) => createData(account));
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} className='rounded-lg'>
       <Table aria-label='customized table'>
         <TableHead>
           <TableRow>
