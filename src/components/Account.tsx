@@ -4,9 +4,9 @@ import { Button } from '@mui/material';
 
 const Account = ({ number }: { number: number }) => {
   return (
-    <div className='pt-5'>
-      <div>Account {number}:</div>
-      <div className='flex gap-4 mt-2'>
+    <div className='mt-2'>
+      <span>Account {number}:</span>
+      <div className='flex gap-4 mt-1'>
         <TextField
           id='outlined-basic'
           label='API Key'
