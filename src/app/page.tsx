@@ -4,6 +4,13 @@ import Header from '@/components/Header';
 import Account from '@/components/Account';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Volume from '@/components/Volume';
+import BalanceTable from '@/components/BalanceTable';
+import {
+  mockClientId,
+  mockTotalPL,
+  mockCurrency,
+  mockAccounts,
+} from '@/mockData/mockData';
 
 const darkTheme = createTheme({
   palette: {
@@ -12,29 +19,31 @@ const darkTheme = createTheme({
 });
 
 const App = () => {
-  const mockClientId = '285890a0-e705-45ba-a9ea-a4a0d3abab19';
-  const mockAccountNumberOne = 1;
-  const mockAccountNumberTwo = 2;
-  const mockTotalPL = -1000;
-  const mockCurrency = '$';
+  const [accounts, setAccounts] = React.useState(mockAccounts);
 
   return (
     <ThemeProvider theme={darkTheme}>
       <Header clientID={mockClientId} />
-      <div className='grid'>
-        <Account number={mockAccountNumberOne} />
-        <Account number={mockAccountNumberTwo} />
-        <div className='flex gap-4 mt-5'>
-          <Volume />
-          <span>
-            Total P&L:{' '}
-            <span
-              className={mockTotalPL > 0 ? 'text-green-500' : 'text-red-500'}
-            >
-              {mockTotalPL}
-              {mockCurrency}
+      <div className='grid grid-rows-2 grid-cols-2'>
+        <div className='row-span-1 col-span-1 border-b border-slate-500 p-2'>
+          {accounts.map((account) => (
+            <Account number={account.id} key={account.id} />
+          ))}
+          <div className='flex gap-4 mt-5'>
+            <Volume />
+            <span>
+              Total P&L:{' '}
+              <span
+                className={mockTotalPL > 0 ? 'text-green-500' : 'text-red-500'}
+              >
+                {mockTotalPL}
+                {mockCurrency}
+              </span>
             </span>
-          </span>
+          </div>
+        </div>
+        <div className='row-start-2 p-2'>
+          <BalanceTable accounts={accounts}/>
         </div>
       </div>
     </ThemeProvider>
