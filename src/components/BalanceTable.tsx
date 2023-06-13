@@ -8,11 +8,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-interface BalanceTableProps {
-  accounts: object[];
+interface Account {
+  id: number;
+  balances: { [key: string]: number };
 }
 
-const BalanceTable: React.FC<BalanceTableProps> = ({ accounts }) => {
+const BalanceTable = ({ accounts }: { accounts: Account[] }) => {
   const [displayedCurrencies, setDisplayedCurrencies] = React.useState([
     'BTC',
     'USDT',
@@ -29,7 +30,7 @@ const BalanceTable: React.FC<BalanceTableProps> = ({ accounts }) => {
   }));
 
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&': {
+    '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
     '&:last-child td, &:last-child th': {
@@ -38,27 +39,21 @@ const BalanceTable: React.FC<BalanceTableProps> = ({ accounts }) => {
   }));
 
   interface RowData {
-    account: number;
-    firstCurrency: number;
-    secondCurrency: number;
+    account: string;
+    [key: string]: number | string;
   }
 
-  const createData = (
-    account: number,
-    balances: { [key: string]: number }
-  ): RowData => {
-    let rowData: RowData = { account, firstCurrency: 0, secondCurrency: 0 };
+  const createData = (account: Account): RowData => {
+    let rowData: RowData = { account: `Account ${account.id}` };
 
     for (let currency of displayedCurrencies) {
-      rowData[currency] = balances[currency] || 0;
+      rowData[currency] = account.balances[currency] || 0;
     }
 
     return rowData;
   };
 
-  const rows: RowData[] = accounts.map((account) =>
-    createData(`Account ${account.id}`, account.balances)
-  );
+  const rows: RowData[] = accounts.map((account) => createData(account));
 
   return (
     <TableContainer component={Paper}>
