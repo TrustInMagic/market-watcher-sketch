@@ -51,7 +51,7 @@ export function CandleChart({
     }
   }, [loading, theme]);
 
-  return <div ref={chartRef} className='w-full h-full' />;
+  return <div ref={chartRef} className='w-full h-full pt-4' />;
 }
 
 export default CandleChart;

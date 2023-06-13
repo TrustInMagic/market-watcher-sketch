@@ -1,13 +1,18 @@
 import { calculateMA, splitData } from "./utilFunctions";
 import { mockCandleData } from '@/mockData/mockData';
-
-const upColor = '#ec0000';
-const upBorderColor = '#8A0000';
-const downColor = '#00da3c';
-const downBorderColor = '#008F28';
+// up: #00da3c
+// down: #ec0000
+// upBorder: #008F28
+// downBorder: #8A0000
+const upColor = '#00da3c';
+const upBorderColor = '#008F28';
+const downColor = '#ec0000';
+const downBorderColor = '#8A0000';
+const backgroundColor = 'rgb(15 23 42)'
 const processedData = splitData(mockCandleData);
 
 const options = {
+  backgroundColor: backgroundColor,
   title: {
     text: 'BTC/USDT',
     left: 0,
@@ -19,7 +24,7 @@ const options = {
     },
   },
   legend: {
-    data: ['Day K', 'MA5', 'MA10', 'MA20', 'MA30'],
+    data: ['Candles', 'MA5', 'MA10', 'MA20', 'MA30'],
   },
   grid: {
     left: '10%',
@@ -57,7 +62,7 @@ const options = {
   ],
   series: [
     {
-      name: 'Day K',
+      name: 'Candles',
       type: 'candlestick',
       data: processedData.values,
       itemStyle: {
@@ -65,89 +70,6 @@ const options = {
         color0: downColor,
         borderColor: upBorderColor,
         borderColor0: downBorderColor,
-      },
-      markPoint: {
-        label: {
-          formatter: function (param: any) {
-            return param != null ? Math.round(param.value) + '' : '';
-          },
-        },
-        data: [
-          {
-            name: 'Mark',
-            coord: ['2013/5/31', 2300],
-            value: 2300,
-            itemStyle: {
-              color: 'rgb(41,60,85)',
-            },
-          },
-          {
-            name: 'highest value',
-            type: 'max',
-            valueDim: 'highest',
-          },
-          {
-            name: 'lowest value',
-            type: 'min',
-            valueDim: 'lowest',
-          },
-          {
-            name: 'average value on close',
-            type: 'average',
-            valueDim: 'close',
-          },
-        ],
-        tooltip: {
-          formatter: function (param: any) {
-            return param.name + '<br>' + (param.data.coord || '');
-          },
-        },
-      },
-      markLine: {
-        symbol: ['none', 'none'],
-        data: [
-          [
-            {
-              name: 'from lowest to highest',
-              type: 'min',
-              valueDim: 'lowest',
-              symbol: 'circle',
-              symbolSize: 10,
-              label: {
-                show: false,
-              },
-              emphasis: {
-                label: {
-                  show: false,
-                },
-              },
-            },
-            {
-              type: 'max',
-              valueDim: 'highest',
-              symbol: 'circle',
-              symbolSize: 10,
-              label: {
-                show: false,
-              },
-              emphasis: {
-                label: {
-                  show: false,
-                },
-              },
-            },
-          ],
-          {
-            name: 'min line on close',
-            type: 'min',
-            valueDim: 'close',
-          },
-          {
-            name: 'max line on close',
-            type: 'max',
-            valueDim: 'close',
-          },
-        ],
       },
     },
     {
