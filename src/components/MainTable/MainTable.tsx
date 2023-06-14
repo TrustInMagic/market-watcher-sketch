@@ -15,8 +15,50 @@ import {
 } from './MainTable.config';
 import { mockSessionData } from '@/mockData/mockData';
 
+interface SessionData {
+  cycle: number;
+  status?: string;
+  duration?: string;
+  shortPL?: number;
+  longPL?: number;
+  tradingAmount?: number;
+}
+
+interface MockSessionData {
+  pair: {
+    id: string;
+    accounts: {
+      short: number;
+      long: number;
+    };
+    balanceBTC: number;
+    balanceUSDT: number;
+    sessions: SessionData[];
+  };
+}
+
+interface SessionRowData {
+  pair: string;
+  shortAcc: number;
+  longAcc: number;
+  balanceBTC: number;
+  balanceUSDT: number;
+  activePairs: number;
+  session: number;
+  cycle: number;
+  status: string | undefined;
+  duration: string | undefined;
+  shortPL: number | undefined;
+  longPL: number | undefined;
+  totalPL: number;
+  tradingAmount: number | undefined;
+}
+
 const MainTable: React.FC = () => {
-  const createData = (sessionData, mockSessionData) => {
+  const createData = (
+    sessionData: SessionData,
+    mockSessionData: MockSessionData
+  ): SessionRowData => {
     const activePairs = mockSessionData.pair.sessions.reduce(
       (total, session) => {
         if (session.cycle > 0) total++;
@@ -25,7 +67,7 @@ const MainTable: React.FC = () => {
       0
     );
 
-    const totalPL = sessionData.shortPL + sessionData.longPL || 0;
+    const totalPL = (sessionData.shortPL || 0) + (sessionData.longPL || 0);
     const sessionNumber =
       mockSessionData.pair.sessions.indexOf(sessionData) + 1;
 
@@ -46,7 +88,7 @@ const MainTable: React.FC = () => {
       tradingAmount: sessionData.tradingAmount,
     };
 
-    console.log(totalPL)
+    console.log(totalPL);
 
     return sessionRowData;
   };
