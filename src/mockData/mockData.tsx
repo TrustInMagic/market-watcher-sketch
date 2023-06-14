@@ -25,10 +25,29 @@ const mockOrders = [
     status: 'open close down hit x',
     long: {
       orderType: 'Lim Buy B',
+      price: 25210,
+      quantityTUSD: 40000,
+      orderStatus: 'open',
+      PL: -100,
+    },
+    short: {
+      orderType: 'Lim Sell',
+      price: 2500,
+      borRep: 'Borrow',
+      qtyBTC: 0.85766,
+      orderStatus: 'executed',
+      PL: 1100,
+    },
+  },
+  {
+    time: '20:50:20',
+    status: 'open market short correction 1',
+    long: {
+      orderType: 'Lim Buy B',
       price: 25000,
       quantityTUSD: 50000,
       orderStatus: 'open',
-      PL: 0,
+      PL: 100,
     },
     short: {
       orderType: 'Lim Sell',
@@ -36,7 +55,7 @@ const mockOrders = [
       borRep: 'Borrow',
       qtyBTC: 1.85766,
       orderStatus: 'executed',
-      PL: 0,
+      PL: -2500,
     },
   },
 ];

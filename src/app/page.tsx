@@ -50,7 +50,7 @@ const App = () => {
           <BalanceTable accounts={accounts} />
         </div>
         <div className='col-start-2 col-end-3 row-start-1 row-end-3'>
-          <CandleChart loading={false} theme='dark'/>
+          <CandleChart loading={false} theme='dark' />
         </div>
         <Button
           variant='contained'
@@ -60,8 +60,8 @@ const App = () => {
           Start Trades
         </Button>
       </div>
-      <div className='flex flex-col mt-10'>
-        <span className='self-center'>My Trades</span>
+      <div className='flex flex-col mt-10 gap-2 text-lg'>
+        <span className='self-center font-bold'>My Trades</span>
         <OrderTable />
       </div>
     </ThemeProvider>

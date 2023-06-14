@@ -36,20 +36,20 @@ interface Cycle {
 
 interface Row {
   time: string;
-  long_orderType: string;
-  long_price: number;
-  long_quantityTUSD: number;
-  long_orderStatus: string;
-  long_PL: number;
+  longOrderType: string;
+  longPrice: number;
+  longQuantityTUSD: number;
+  longOrderStatus: string;
+  longPL: number;
   markPrice: string;
   status: string;
   xMark: number;
-  short_orderType: string;
-  short_borRep: string;
-  short_price: number;
-  short_qtyBTC: number;
-  short_orderStatus: string;
-  short_PL: number;
+  shortOrderType: string;
+  shortBorRep: string;
+  shortPrice: number;
+  shortQtyBTC: number;
+  shortOrderStatus: string;
+  shortPL: number;
 }
 
 const OrderTable = () => {
@@ -82,23 +82,37 @@ const OrderTable = () => {
     },
   }));
 
+  const StyledTablePLProfitCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.body}`]: {
+      backgroundColor: theme.palette.success.dark,
+      fontSize: 14,
+    },
+  }));
+
+  const StyledTablePLLossCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.body}`]: {
+      backgroundColor: theme.palette.error.dark,
+      fontSize: 14,
+    },
+  }));
+
   const createData = (order: Order, cycle: Cycle): Row => {
     const rowData = {
       time: order.time,
-      long_orderType: order.long.orderType,
-      long_price: order.long.price,
-      long_quantityTUSD: order.long.quantityTUSD,
-      long_orderStatus: order.long.orderStatus,
-      long_PL: order.long.PL,
+      longOrderType: order.long.orderType,
+      longPrice: order.long.price,
+      longQuantityTUSD: order.long.quantityTUSD,
+      longOrderStatus: order.long.orderStatus,
+      longPL: order.long.PL,
       markPrice: cycle.markPrice,
       status: order.status,
       xMark: cycle.xMark,
-      short_orderType: order.short.orderType,
-      short_borRep: order.short.borRep,
-      short_price: order.short.price,
-      short_qtyBTC: order.short.qtyBTC,
-      short_orderStatus: order.short.orderStatus,
-      short_PL: order.short.PL,
+      shortOrderType: order.short.orderType,
+      shortBorRep: order.short.borRep,
+      shortPrice: order.short.price,
+      shortQtyBTC: order.short.qtyBTC,
+      shortOrderStatus: order.short.orderStatus,
+      shortPL: order.short.PL,
     };
 
     return rowData;
@@ -107,6 +121,10 @@ const OrderTable = () => {
   const rows: Row[] = mockOrders.map((order: Order) =>
     createData(order, mockCycle)
   );
+
+  const calculateTotalPL = (longPL: number, shortPL: number) => {
+    return longPL + shortPL;
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -124,6 +142,9 @@ const OrderTable = () => {
             </StyledTableCell>
             <StyledTableCell align='center' colSpan={6}>
               Account 22 Short S8
+            </StyledTableCell>
+            <StyledTableCell align='center' rowSpan={2}>
+              Total P&L
             </StyledTableCell>
           </TableRow>
           <TableRow>
@@ -149,20 +170,29 @@ const OrderTable = () => {
             <StyledTableRow key={index}>
               <StyledTableFirstCell></StyledTableFirstCell>
               <TableCell align='center'>{row.time}</TableCell>
-              <TableCell align='center'>{row.long_orderType}</TableCell>
-              <TableCell align='center'>{row.long_price}</TableCell>
-              <TableCell align='center'>{row.long_quantityTUSD}</TableCell>
-              <TableCell align='center'>{row.long_orderStatus}</TableCell>
-              <TableCell align='center'>{row.long_PL}</TableCell>
+              <TableCell align='center'>{row.longOrderType}</TableCell>
+              <TableCell align='center'>{row.longPrice}</TableCell>
+              <TableCell align='center'>{row.longQuantityTUSD}</TableCell>
+              <TableCell align='center'>{row.longOrderStatus}</TableCell>
+              <TableCell align='center'>{row.longPL}</TableCell>
               <TableCell align='center'>{row.markPrice}</TableCell>
               <TableCell align='center'>{row.status}</TableCell>
               <TableCell align='center'>{row.xMark}</TableCell>
-              <TableCell align='center'>{row.short_orderType}</TableCell>
-              <TableCell align='center'>{row.short_borRep}</TableCell>
-              <TableCell align='center'>{row.short_price}</TableCell>
-              <TableCell align='center'>{row.short_qtyBTC}</TableCell>
-              <TableCell align='center'>{row.short_orderStatus}</TableCell>
-              <TableCell align='center'>{row.short_PL}</TableCell>
+              <TableCell align='center'>{row.shortOrderType}</TableCell>
+              <TableCell align='center'>{row.shortBorRep}</TableCell>
+              <TableCell align='center'>{row.shortPrice}</TableCell>
+              <TableCell align='center'>{row.shortQtyBTC}</TableCell>
+              <TableCell align='center'>{row.shortOrderStatus}</TableCell>
+              <TableCell align='center'>{row.shortPL}</TableCell>
+              {calculateTotalPL(row.longPL, row.shortPL) > 0 ? (
+                <StyledTablePLProfitCell align='center'>
+                  {calculateTotalPL(row.longPL, row.shortPL)}
+                </StyledTablePLProfitCell>
+              ) : (
+                <StyledTablePLLossCell align='center'>
+                  {calculateTotalPL(row.longPL, row.shortPL)}
+                </StyledTablePLLossCell>
+              )}
             </StyledTableRow>
           ))}
         </TableBody>
