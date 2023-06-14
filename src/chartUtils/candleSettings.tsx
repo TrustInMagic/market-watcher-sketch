@@ -1,9 +1,6 @@
 import { calculateMA, splitData } from "./utilFunctions";
 import { mockCandleData } from '@/mockData/mockData';
-// up: #00da3c
-// down: #ec0000
-// upBorder: #008F28
-// downBorder: #8A0000
+
 const upColor = '#00da3c';
 const upBorderColor = '#008F28';
 const downColor = '#ec0000';

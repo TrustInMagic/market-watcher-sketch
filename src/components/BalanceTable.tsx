@@ -17,6 +17,7 @@ const BalanceTable = ({ accounts }: { accounts: Account[] }) => {
   const [displayedCurrencies, setDisplayedCurrencies] = React.useState([
     'BTC',
     'USDT',
+    'ADA'
   ]);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({

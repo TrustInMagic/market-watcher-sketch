@@ -22,7 +22,6 @@ export function CandleChart({
     }
 
     // Add chart resize listener
-    // ResizeObserver is leading to a bit janky UX
     function resizeChart() {
       chart?.resize();
     }
@@ -41,7 +40,7 @@ export function CandleChart({
       const chart = getInstanceByDom(chartRef.current);
       chart.setOption(options);
     }
-  }, [options, theme]); // Whenever theme changes we need to add option and setting due to it being deleted in cleanup function
+  }, [options, theme]); 
 
   React.useEffect(() => {
     // Update chart
