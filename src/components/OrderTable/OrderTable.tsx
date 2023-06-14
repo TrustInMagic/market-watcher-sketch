@@ -1,13 +1,19 @@
 import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
 import { mockOrders, mockCycle } from '@/mockData/mockData';
+import {
+  StyledTableCell,
+  StyledTableRow,
+  StyledTableFirstCell,
+  StyledTablePLProfitCell,
+  StyledTablePLLossCell,
+} from './OrderTable.config';
 
 interface Order {
   time: string;
@@ -52,50 +58,13 @@ interface Row {
   shortPL: number;
 }
 
+const calculateTotalPL = (longPL: number, shortPL: number) => {
+  const localLongPL = longPL || 0;
+  const localShortPL = shortPL || 0;
+  return localLongPL + localShortPL;
+};
+
 const OrderTable = () => {
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
-
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&': {
-      backgroundColor: theme.palette.action.hover,
-    },
-    '&:last-child td, &:last-child th': {
-      border: 0,
-    },
-  }));
-
-  const StyledTableFirstCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.grey[900],
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
-
-  const StyledTablePLProfitCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.body}`]: {
-      backgroundColor: theme.palette.success.dark,
-      fontSize: 14,
-    },
-  }));
-
-  const StyledTablePLLossCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.body}`]: {
-      backgroundColor: theme.palette.error.dark,
-      fontSize: 14,
-    },
-  }));
-
   const createData = (order: Order, cycle: Cycle): Row => {
     const rowData = {
       time: order.time,
@@ -112,7 +81,7 @@ const OrderTable = () => {
       shortPrice: order?.short?.price,
       shortQtyBTC: order?.short?.qtyBTC,
       shortOrderStatus: order?.short?.orderStatus,
-      shortPL: order?.short?.PL,
+      shortPL: order?.short?.PL
     };
 
     return rowData;
@@ -121,12 +90,6 @@ const OrderTable = () => {
   const rows: Row[] = mockOrders.map((order: Order) =>
     createData(order, mockCycle)
   );
-
-  const calculateTotalPL = (longPL: number, shortPL: number) => {
-    const localLongPL = longPL || 0
-    const localShortPL = shortPL || 0;
-    return localLongPL + localShortPL;
-  };
 
   return (
     <TableContainer component={Paper}>

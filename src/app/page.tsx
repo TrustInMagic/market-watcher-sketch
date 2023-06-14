@@ -4,9 +4,9 @@ import Header from '@/components/Header';
 import Account from '@/components/Account';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Volume from '@/components/Volume';
-import BalanceTable from '@/components/BalanceTable';
+import BalanceTable from '@/components/BalanceTable/BalanceTable';
 import CandleChart from '@/components/CandleChart';
-import OrderTable from '@/components/OrderTable';
+import OrderTable from '@/components/OrderTable/OrderTable';
 import { Button } from '@mui/material';
 import {
   mockClientId,

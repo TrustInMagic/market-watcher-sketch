@@ -34,8 +34,6 @@ const CandleChart = ({
     defaultOptionsCopy.series[3].data = calculateMA(20, processedData);
     defaultOptionsCopy.series[4].data = calculateMA(30, processedData);
 
-    console.log(defaultOptionsCopy);
-
     return defaultOptionsCopy;
   }, [pair]);
 
