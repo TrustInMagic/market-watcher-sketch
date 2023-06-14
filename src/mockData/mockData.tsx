@@ -58,6 +58,17 @@ const mockOrders = [
       PL: -2500,
     },
   },
+  {
+    time: '12:50:20',
+    status: 'close up hit x adjparam',
+    long: {
+      orderType: 'Lim Buy B',
+      price: 28000,
+      quantityTUSD: 80000,
+      orderStatus: 'open',
+      PL: 5000,
+    },
+  },
 ];
 
 const mockCycle = {
@@ -165,5 +176,5 @@ export {
   mockAccounts,
   mockCandleData,
   mockOrders,
-  mockCycle
+  mockCycle,
 };

@@ -99,20 +99,20 @@ const OrderTable = () => {
   const createData = (order: Order, cycle: Cycle): Row => {
     const rowData = {
       time: order.time,
-      longOrderType: order.long.orderType,
-      longPrice: order.long.price,
-      longQuantityTUSD: order.long.quantityTUSD,
-      longOrderStatus: order.long.orderStatus,
-      longPL: order.long.PL,
+      longOrderType: order?.long?.orderType,
+      longPrice: order?.long?.price,
+      longQuantityTUSD: order?.long?.quantityTUSD,
+      longOrderStatus: order?.long?.orderStatus,
+      longPL: order?.long?.PL,
       markPrice: cycle.markPrice,
       status: order.status,
       xMark: cycle.xMark,
-      shortOrderType: order.short.orderType,
-      shortBorRep: order.short.borRep,
-      shortPrice: order.short.price,
-      shortQtyBTC: order.short.qtyBTC,
-      shortOrderStatus: order.short.orderStatus,
-      shortPL: order.short.PL,
+      shortOrderType: order?.short?.orderType,
+      shortBorRep: order?.short?.borRep,
+      shortPrice: order?.short?.price,
+      shortQtyBTC: order?.short?.qtyBTC,
+      shortOrderStatus: order?.short?.orderStatus,
+      shortPL: order?.short?.PL,
     };
 
     return rowData;
@@ -123,7 +123,9 @@ const OrderTable = () => {
   );
 
   const calculateTotalPL = (longPL: number, shortPL: number) => {
-    return longPL + shortPL;
+    const localLongPL = longPL || 0
+    const localShortPL = shortPL || 0;
+    return localLongPL + localShortPL;
   };
 
   return (
@@ -138,7 +140,7 @@ const OrderTable = () => {
               Account 9 Long S8
             </StyledTableCell>
             <StyledTableCell align='center' colSpan={3}>
-              Cicle 5
+              Cycle 5
             </StyledTableCell>
             <StyledTableCell align='center' colSpan={6}>
               Account 22 Short S8
@@ -169,21 +171,31 @@ const OrderTable = () => {
           {rows.map((row, index) => (
             <StyledTableRow key={index}>
               <StyledTableFirstCell></StyledTableFirstCell>
-              <TableCell align='center'>{row.time}</TableCell>
-              <TableCell align='center'>{row.longOrderType}</TableCell>
-              <TableCell align='center'>{row.longPrice}</TableCell>
-              <TableCell align='center'>{row.longQuantityTUSD}</TableCell>
-              <TableCell align='center'>{row.longOrderStatus}</TableCell>
-              <TableCell align='center'>{row.longPL}</TableCell>
-              <TableCell align='center'>{row.markPrice}</TableCell>
-              <TableCell align='center'>{row.status}</TableCell>
-              <TableCell align='center'>{row.xMark}</TableCell>
-              <TableCell align='center'>{row.shortOrderType}</TableCell>
-              <TableCell align='center'>{row.shortBorRep}</TableCell>
-              <TableCell align='center'>{row.shortPrice}</TableCell>
-              <TableCell align='center'>{row.shortQtyBTC}</TableCell>
-              <TableCell align='center'>{row.shortOrderStatus}</TableCell>
-              <TableCell align='center'>{row.shortPL}</TableCell>
+              <TableCell align='center'>{row.time || 'none'}</TableCell>
+              <TableCell align='center'>
+                {row.longOrderType || 'none'}
+              </TableCell>
+              <TableCell align='center'>{row?.longPrice || 'none'}</TableCell>
+              <TableCell align='center'>
+                {row.longQuantityTUSD || 'none'}
+              </TableCell>
+              <TableCell align='center'>
+                {row.longOrderStatus || 'none'}
+              </TableCell>
+              <TableCell align='center'>{row.longPL || 'none'}</TableCell>
+              <TableCell align='center'>{row.markPrice || 'none'}</TableCell>
+              <TableCell align='center'>{row.status || 'none'}</TableCell>
+              <TableCell align='center'>{row.xMark || 'none'}</TableCell>
+              <TableCell align='center'>
+                {row.shortOrderType || 'none'}
+              </TableCell>
+              <TableCell align='center'>{row.shortBorRep || 'none'}</TableCell>
+              <TableCell align='center'>{row.shortPrice || 'none'}</TableCell>
+              <TableCell align='center'>{row.shortQtyBTC || 'none'}</TableCell>
+              <TableCell align='center'>
+                {row.shortOrderStatus || 'none'}
+              </TableCell>
+              <TableCell align='center'>{row.shortPL || 'none'}</TableCell>
               {calculateTotalPL(row.longPL, row.shortPL) > 0 ? (
                 <StyledTablePLProfitCell align='center'>
                   {calculateTotalPL(row.longPL, row.shortPL)}
