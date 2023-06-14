@@ -1,17 +1,13 @@
-import { calculateMA, splitData } from "./utilFunctions";
-import { mockCandleData } from '@/mockData/mockData';
-
 const upColor = '#00da3c';
 const upBorderColor = '#008F28';
 const downColor = '#ec0000';
 const downBorderColor = '#8A0000';
 const backgroundColor = 'rgb(15 23 42)'
-const processedData = splitData(mockCandleData);
 
 const options = {
   backgroundColor: backgroundColor,
   title: {
-    text: 'BTC/USDT',
+    text: '',
     left: 0,
   },
   tooltip: {
@@ -30,7 +26,7 @@ const options = {
   },
   xAxis: {
     type: 'category',
-    data: processedData.categoryData,
+    data: [],
     boundaryGap: false,
     axisLine: { onZero: false },
     splitLine: { show: false },
@@ -61,7 +57,7 @@ const options = {
     {
       name: 'Candles',
       type: 'candlestick',
-      data: processedData.values,
+      data: [],
       itemStyle: {
         color: upColor,
         color0: downColor,
@@ -72,7 +68,7 @@ const options = {
     {
       name: 'MA5',
       type: 'line',
-      data: calculateMA(5, processedData),
+      data: null,
       smooth: true,
       lineStyle: {
         opacity: 0.5,
@@ -81,7 +77,7 @@ const options = {
     {
       name: 'MA10',
       type: 'line',
-      data: calculateMA(10, processedData),
+      data: null,
       smooth: true,
       lineStyle: {
         opacity: 0.5,
@@ -90,7 +86,7 @@ const options = {
     {
       name: 'MA20',
       type: 'line',
-      data: calculateMA(20, processedData),
+      data: null,
       smooth: true,
       lineStyle: {
         opacity: 0.5,
@@ -99,7 +95,7 @@ const options = {
     {
       name: 'MA30',
       type: 'line',
-      data: calculateMA(30, processedData),
+      data: null,
       smooth: true,
       lineStyle: {
         opacity: 0.5,

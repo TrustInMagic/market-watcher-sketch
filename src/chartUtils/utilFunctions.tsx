@@ -11,7 +11,12 @@ function splitData(rawData: (number | string)[][]) {
   };
 }
 
-function calculateMA(dayCount: number, processedData) {
+interface ProcessData {
+  categoryData: number[][];
+  values: number[][];
+}
+
+function calculateMA(dayCount: number, processedData: ProcessData) {
   var result = [];
   for (var i = 0, len = processedData.values.length; i < len; i++) {
     if (i < dayCount) {

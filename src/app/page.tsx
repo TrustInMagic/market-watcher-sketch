@@ -50,7 +50,7 @@ const App = () => {
           <BalanceTable accounts={accounts} />
         </div>
         <div className='col-start-2 col-end-3 row-start-1 row-end-3'>
-          <CandleChart loading={false} theme='dark' />
+          <CandleChart loading={false} theme='dark' pair={tradedPair} />
         </div>
         <Button
           variant='contained'
