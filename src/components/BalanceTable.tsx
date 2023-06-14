@@ -31,7 +31,7 @@ const BalanceTable = ({ accounts }: { accounts: Account[] }) => {
   }));
 
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
+    '&': {
       backgroundColor: theme.palette.action.hover,
     },
     '&:last-child td, &:last-child th': {
@@ -45,7 +45,7 @@ const BalanceTable = ({ accounts }: { accounts: Account[] }) => {
   }
 
   const createData = (account: Account): RowData => {
-    let rowData: RowData = { account: `Account ${account.id}` };
+    const rowData: RowData = { account: `Account ${account.id}` };
 
     for (let currency of displayedCurrencies) {
       rowData[currency] = account.balances[currency] || 0;

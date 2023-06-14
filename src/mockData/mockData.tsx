@@ -7,7 +7,7 @@ const mockAccounts = [
     balances: {
       BTC: 0.66,
       USDT: 10000,
-      ADA: 13
+      ADA: 13,
     },
   },
   {
@@ -18,6 +18,34 @@ const mockAccounts = [
     },
   },
 ];
+
+const mockOrders = [
+  {
+    time: '22:50:20',
+    status: 'open close down hit x',
+    long: {
+      orderType: 'Lim Buy B',
+      price: 25000,
+      quantityTUSD: 50000,
+      orderStatus: 'open',
+      PL: 0,
+    },
+    short: {
+      orderType: 'Lim Sell',
+      price: 24979,
+      borRep: 'Borrow',
+      qtyBTC: 1.85766,
+      orderStatus: 'executed',
+      PL: 0,
+    },
+  },
+];
+
+const mockCycle = {
+  id: 5,
+  markPrice: 25020,
+  xMark: 20,
+};
 
 // Each item: open，close，lowest，highest
 const mockCandleData = [
@@ -111,4 +139,12 @@ const mockCandleData = [
   ['2022/6/13', 2190.1, 2148.35, 2126.22, 2190.1],
 ];
 
-export { mockClientId, mockTotalPL, mockCurrency, mockAccounts, mockCandleData };
+export {
+  mockClientId,
+  mockTotalPL,
+  mockCurrency,
+  mockAccounts,
+  mockCandleData,
+  mockOrders,
+  mockCycle
+};

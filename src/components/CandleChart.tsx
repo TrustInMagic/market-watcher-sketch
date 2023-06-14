@@ -6,6 +6,7 @@ import type { ECharts } from 'echarts';
 interface ReactEChartsProps {
   loading?: boolean;
   theme?: 'light' | 'dark';
+  pair?: string
 }
 
 export function CandleChart({
@@ -40,7 +41,7 @@ export function CandleChart({
       const chart = getInstanceByDom(chartRef.current);
       chart.setOption(options);
     }
-  }, [options, theme]); 
+  }, [options, theme]);
 
   React.useEffect(() => {
     // Update chart

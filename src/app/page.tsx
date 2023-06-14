@@ -6,6 +6,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Volume from '@/components/Volume';
 import BalanceTable from '@/components/BalanceTable';
 import CandleChart from '@/components/CandleChart';
+import OrderTable from '@/components/OrderTable';
 import { Button } from '@mui/material';
 import {
   mockClientId,
@@ -22,6 +23,7 @@ const darkTheme = createTheme({
 
 const App = () => {
   const [accounts, setAccounts] = React.useState(mockAccounts);
+  const [tradedPair, setTradedPair] = React.useState('BTC/USDT');
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -57,6 +59,10 @@ const App = () => {
         >
           Start Trades
         </Button>
+      </div>
+      <div className='flex flex-col mt-10'>
+        <span className='self-center'>My Trades</span>
+        <OrderTable />
       </div>
     </ThemeProvider>
   );
