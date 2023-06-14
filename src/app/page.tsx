@@ -24,6 +24,7 @@ const darkTheme = createTheme({
 const App = () => {
   const [accounts, setAccounts] = React.useState(mockAccounts);
   const [tradedPair, setTradedPair] = React.useState('BTC/USDT');
+  const [openTrades, setOpenTrades] = React.useState(false);
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -50,9 +51,10 @@ const App = () => {
           <BalanceTable accounts={accounts} />
         </div>
         <div className='col-start-2 col-end-3 row-start-1 row-end-3'>
-          <CandleChart loading={false} theme='dark' pair={tradedPair} />
+          <CandleChart theme='dark' pair={tradedPair} />
         </div>
         <Button
+          onClick={() => setOpenTrades(true)}
           variant='contained'
           disableElevation
           className='bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded mt-2'
@@ -62,7 +64,7 @@ const App = () => {
       </div>
       <div className='flex flex-col mt-10 gap-2 text-lg'>
         <span className='self-center font-bold'>My Trades</span>
-        <OrderTable />
+        {openTrades ? <OrderTable /> : null}
       </div>
     </ThemeProvider>
   );
