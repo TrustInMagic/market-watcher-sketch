@@ -77,6 +77,47 @@ const mockCycle = {
   xMark: 20,
 };
 
+const mockSessionData = {
+  pair: {
+    id: 'BTC/USDT',
+    accounts: {
+      short: 9,
+      long: 22,
+    },
+    balanceBTC: 0.665,
+    balanceUSDT: 12300,
+    sessions: [
+      {
+        cycle: 2,
+        status: 'open market short correction 1 SL',
+        duration: '1:33',
+        shortPL: -200,
+        longPL: 900,
+        tradingAmount: 5000,
+      },
+      {
+        cycle: 8,
+        status: 'open close down hit x',
+        duration: '2:33',
+        shortPL: 200,
+        longPL: 900,
+        tradingAmount: 7000,
+      },
+      {
+        cycle: 3,
+        status: 'open market short correction',
+        duration: '4:23',
+        shortPL: -200,
+        longPL: -500,
+        tradingAmount: 8000,
+      },
+      {
+        cycle: 0
+      }
+    ],
+  },
+};
+
 // Each item: open，close，lowest，highest
 const mockCandleData = [
   ['2022/1/24', 2320.26, 2320.26, 2287.3, 2362.94],
@@ -177,4 +218,5 @@ export {
   mockCandleData,
   mockOrders,
   mockCycle,
+  mockSessionData,
 };

@@ -7,6 +7,7 @@ import Volume from '@/components/Volume';
 import BalanceTable from '@/components/BalanceTable/BalanceTable';
 import CandleChart from '@/components/CandleChart';
 import OrderTable from '@/components/OrderTable/OrderTable';
+import MainTable from '@/components/MainTable/MainTable';
 import { Button } from '@mui/material';
 import {
   mockClientId,
@@ -64,7 +65,10 @@ const App = () => {
       </div>
       <div className='flex flex-col mt-10 gap-2 text-lg'>
         <span className='self-center font-bold'>My Trades</span>
-        {openTrades ? <OrderTable /> : null}
+        {openTrades ? <OrderTable pair={tradedPair} /> : null}
+      </div>
+      <div className='flex flex-col mt-20 mb-20 gap-2 text-lg'>
+        <MainTable />
       </div>
     </ThemeProvider>
   );

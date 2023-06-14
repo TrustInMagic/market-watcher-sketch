@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,7 +10,6 @@ import { mockOrders, mockCycle } from '@/mockData/mockData';
 import {
   StyledTableCell,
   StyledTableRow,
-  StyledTableFirstCell,
   StyledTablePLProfitCell,
   StyledTablePLLossCell,
 } from './OrderTable.config';
@@ -64,7 +63,7 @@ const calculateTotalPL = (longPL: number, shortPL: number) => {
   return localLongPL + localShortPL;
 };
 
-const OrderTable = () => {
+const OrderTable: React.FC = ({ pair }: { pair: string }) => {
   const createData = (order: Order, cycle: Cycle): Row => {
     const rowData = {
       time: order.time,
@@ -81,7 +80,7 @@ const OrderTable = () => {
       shortPrice: order?.short?.price,
       shortQtyBTC: order?.short?.qtyBTC,
       shortOrderStatus: order?.short?.orderStatus,
-      shortPL: order?.short?.PL
+      shortPL: order?.short?.PL,
     };
 
     return rowData;
@@ -96,9 +95,9 @@ const OrderTable = () => {
       <Table aria-label='spanning table'>
         <TableHead>
           <TableRow>
-            <StyledTableFirstCell align='center' rowSpan={rows.length + 1}>
+            <StyledTableCell align='center' rowSpan={rows.length + 1}>
               Pair ID
-            </StyledTableFirstCell>
+            </StyledTableCell>
             <StyledTableCell align='center' colSpan={6}>
               Account 9 Long S8
             </StyledTableCell>
@@ -133,7 +132,7 @@ const OrderTable = () => {
         <TableBody>
           {rows.map((row, index) => (
             <StyledTableRow key={index}>
-              <StyledTableFirstCell></StyledTableFirstCell>
+              {index === 0 ? <TableCell rowSpan={3}>{pair}</TableCell> : null}
               <TableCell align='center'>{row.time || 'none'}</TableCell>
               <TableCell align='center'>
                 {row.longOrderType || 'none'}
