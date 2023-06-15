@@ -15,6 +15,7 @@ import {
   mockCurrency,
   mockAccounts,
 } from '@/mockData/mockData';
+import Nav from '@/components/Nav';
 
 const darkTheme = createTheme({
   palette: {
@@ -30,6 +31,9 @@ const App = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <Header clientID={mockClientId} />
+      <div className='m-2'>
+        <Nav pair={tradedPair} />
+      </div>
       <div className='grid auto-cols-auto grid-cols-2'>
         <div className='row-span-1 col-span-1 border-b border-slate-500 p-2'>
           {accounts.map((account) => (
@@ -64,8 +68,12 @@ const App = () => {
         </Button>
       </div>
       <div className='flex flex-col mt-10 gap-2 text-lg'>
-        <span className='self-center font-bold'>My Trades</span>
-        {openTrades ? <OrderTable pair={tradedPair} /> : null}
+        {openTrades ? (
+          <>
+            <span className='self-center font-bold'>My Trades</span>
+            <OrderTable pair={tradedPair} />
+          </>
+        ) : null}
       </div>
       <div className='flex flex-col mt-20 mb-20 gap-2 text-lg'>
         <MainTable />

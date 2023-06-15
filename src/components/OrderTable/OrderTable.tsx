@@ -142,7 +142,7 @@ const OrderTable: React.FC = ({ pair }: { pair: string }) => {
         <TableBody>
           {rows.map((row, index) => (
             <StyledTableRow key={index}>
-              {index === 0 ? <TableCell rowSpan={3}>{pair}</TableCell> : null}
+              {index === 0 ? <TableCell rowSpan={99}>{pair}</TableCell> : null}
               <TableCell align='center'>{row.time || 'none'}</TableCell>
               <TableCell align='center'>
                 {row.longOrderType || 'none'}

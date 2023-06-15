@@ -78,7 +78,7 @@ const mockCycle = {
 };
 
 const mockPairTradingData = {
-  pair: 'BTC/USDT',
+  pair: 'ADA/USDT',
   accounts: {
     short: 9,
     long: 22,
