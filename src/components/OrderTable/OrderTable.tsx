@@ -63,6 +63,16 @@ const calculateTotalPL = (longPL: number, shortPL: number) => {
   return localLongPL + localShortPL;
 };
 
+const buildDynamicColouredCellOrder = (para: number) => {
+  return para < 0 ? (
+    <StyledTablePLLossCell align='center'>{para || 0}</StyledTablePLLossCell>
+  ) : (
+    <StyledTablePLProfitCell align='center'>
+      {para || 0}
+    </StyledTablePLProfitCell>
+  );
+};
+
 const OrderTable: React.FC = ({ pair }: { pair: string }) => {
   const createData = (order: Order, cycle: Cycle): Row => {
     const rowData = {
@@ -158,14 +168,8 @@ const OrderTable: React.FC = ({ pair }: { pair: string }) => {
                 {row.shortOrderStatus || 'none'}
               </TableCell>
               <TableCell align='center'>{row.shortPL || 'none'}</TableCell>
-              {calculateTotalPL(row.longPL, row.shortPL) > 0 ? (
-                <StyledTablePLProfitCell align='center'>
-                  {calculateTotalPL(row.longPL, row.shortPL)}
-                </StyledTablePLProfitCell>
-              ) : (
-                <StyledTablePLLossCell align='center'>
-                  {calculateTotalPL(row.longPL, row.shortPL)}
-                </StyledTablePLLossCell>
+              {buildDynamicColouredCellOrder(
+                calculateTotalPL(row.longPL, row.shortPL)
               )}
             </StyledTableRow>
           ))}
