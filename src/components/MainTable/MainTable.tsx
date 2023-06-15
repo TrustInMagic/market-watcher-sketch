@@ -3,7 +3,6 @@ import {
   TableBody,
   TableContainer,
   TableHead,
-  TableRow,
   Paper,
 } from '@mui/material';
 import {
@@ -14,8 +13,9 @@ import {
   StopButton,
   StartButton,
 } from './MainTable.config';
-import { mockSessionData } from '@/mockData/mockData';
+import { mockPairTradingData } from '@/mockData/mockData';
 import Button from '@mui/material/Button';
+import MidMainTable from '../MidMainTable/MidMainTable';
 
 interface SessionData {
   cycle: number;
@@ -32,8 +32,8 @@ interface MockSessionData {
     short: number;
     long: number;
   };
-  balanceBTC: number;
-  balanceUSDT: number;
+  firstBalance: number;
+  secondBalance: number;
   sessions: SessionData[];
 }
 
@@ -41,8 +41,8 @@ interface SessionRowData {
   pair: string;
   shortAcc: number;
   longAcc: number;
-  balanceBTC: number;
-  balanceUSDT: number;
+  firstBalance: number;
+  secondBalance: number;
   activePairs: number;
   session: number;
   cycle: number;
@@ -52,6 +52,7 @@ interface SessionRowData {
   longPL: number | undefined;
   totalPL: number;
   tradingAmount: number | undefined;
+  totalSessionsNumber: number;
 }
 
 const buildDynamicColouredCellMain = (para: number) => {
@@ -77,44 +78,51 @@ const buildMultipleRowSpanCell = (
   ) : null;
 };
 
-const MainTable: React.FC = () => {
-  const createData = (
-    sessionData: SessionData,
-    mockSessionData: MockSessionData
-  ): SessionRowData => {
-    const activePairs = mockSessionData.sessions.reduce((total, session) => {
-      if (session.cycle > 0) total++;
-      return total;
-    }, 0);
+const calculateActivePairs = (sessionsData) => {
+  return sessionsData.reduce((total, session) => {
+    if (session.cycle > 0) total++;
+    return total;
+  }, 0);
+};
 
-    const totalPL = (sessionData.shortPL || 0) + (sessionData.longPL || 0);
-    const sessionNumber = mockSessionData.sessions.indexOf(sessionData) + 1;
+const createSessionRowData = (
+  sessionData: SessionData,
+  pairTradingData: MockSessionData
+): SessionRowData => {
+  const activePairs = calculateActivePairs(pairTradingData.sessions);
 
-    const sessionRowData = {
-      pair: mockSessionData.pair,
-      shortAcc: mockSessionData.accounts.short,
-      longAcc: mockSessionData.accounts.long,
-      balanceBTC: mockSessionData.balanceBTC,
-      balanceUSDT: mockSessionData.balanceUSDT,
-      activePairs: activePairs,
-      session: sessionNumber,
-      cycle: sessionData.cycle,
-      status: sessionData.status,
-      duration: sessionData.duration,
-      shortPL: sessionData.shortPL,
-      longPL: sessionData.longPL,
-      totalPL: totalPL,
-      tradingAmount: sessionData.tradingAmount,
-      totalSessionsNumber: mockSessionData.sessions.length,
-    };
+  const totalPL = (sessionData.shortPL || 0) + (sessionData.longPL || 0);
+  const sessionNumber = pairTradingData.sessions.indexOf(sessionData) + 1;
 
-    return sessionRowData;
+  return {
+    pair: pairTradingData.pair,
+    shortAcc: pairTradingData.accounts.short,
+    longAcc: pairTradingData.accounts.long,
+    firstBalance: pairTradingData.firstBalance,
+    secondBalance: pairTradingData.secondBalance,
+    activePairs: activePairs,
+    session: sessionNumber,
+    cycle: sessionData.cycle,
+    status: sessionData.status,
+    duration: sessionData.duration,
+    shortPL: sessionData.shortPL,
+    longPL: sessionData.longPL,
+    totalPL: totalPL,
+    tradingAmount: sessionData.tradingAmount,
+    totalSessionsNumber: pairTradingData.sessions.length,
   };
+};
 
-  const sessionRows = mockSessionData.sessions.map((sessionData) =>
-    createData(sessionData, mockSessionData)
-  );
+const sessionRows = mockPairTradingData.sessions.map((sessionData) =>
+  createSessionRowData(sessionData, mockPairTradingData)
+);
 
+const coins = {
+  firstCoin: mockPairTradingData.pair.split('/')[0],
+  secondCoin: mockPairTradingData.pair.split('/')[1],
+};
+
+const MainTable: React.FC = () => {
   // styled with tailwind because for some reason custom mui styles don't work here
   const editPairButton = (
     <Button variant='contained' size='large' className='bg-blue-500 h-full'>
@@ -126,12 +134,16 @@ const MainTable: React.FC = () => {
     <TableContainer component={Paper}>
       <Table aria-label='pair table'>
         <TableHead>
-          <TableRow>
+          <StyledTableRow>
             <StyledTableCell align='center'>Pair ID</StyledTableCell>
             <StyledTableCell align='center'>Short</StyledTableCell>
             <StyledTableCell align='center'>Long</StyledTableCell>
-            <StyledTableCell align='center'>BTC Balance</StyledTableCell>
-            <StyledTableCell align='center'>TUSD Balance</StyledTableCell>
+            <StyledTableCell align='center'>
+              {coins.firstCoin} Balance
+            </StyledTableCell>
+            <StyledTableCell align='center'>
+              {coins.secondCoin} Balance
+            </StyledTableCell>
             <StyledTableCell align='center'>Active Pairs</StyledTableCell>
             <StyledTableCell align='center'>S</StyledTableCell>
             <StyledTableCell align='center'>Cycle</StyledTableCell>
@@ -146,17 +158,12 @@ const MainTable: React.FC = () => {
             <StyledTableCell align='center' colSpan={3}>
               Actions
             </StyledTableCell>
-          </TableRow>
+          </StyledTableRow>
         </TableHead>
         <TableBody>
           {sessionRows.map((row, index) => (
             <StyledTableRow key={index}>
-              {buildMultipleRowSpanCell(
-                index,
-                sessionRows.length + 8,
-                1,
-                row.pair
-              )}
+              {buildMultipleRowSpanCell(index, 99, 1, row.pair)}
               {buildMultipleRowSpanCell(
                 index,
                 sessionRows.length,
@@ -173,13 +180,13 @@ const MainTable: React.FC = () => {
                 index,
                 sessionRows.length,
                 1,
-                row.balanceBTC
+                row.firstBalance
               )}
               {buildMultipleRowSpanCell(
                 index,
                 sessionRows.length,
                 1,
-                row.balanceUSDT
+                row.secondBalance
               )}
               {buildMultipleRowSpanCell(
                 index,
@@ -222,6 +229,34 @@ const MainTable: React.FC = () => {
               )}
             </StyledTableRow>
           ))}
+          <MidMainTable
+            coins={coins}
+            pairTradingData={mockPairTradingData}
+            calculateActivePairs={calculateActivePairs}
+            average='Average 24h'
+            total='Total 24h'
+          />
+          <MidMainTable
+            coins={coins}
+            pairTradingData={mockPairTradingData}
+            calculateActivePairs={calculateActivePairs}
+            average='Average Previous 24h'
+            total='Total PL Previous 24h'
+          />
+          <MidMainTable
+            coins={coins}
+            pairTradingData={mockPairTradingData}
+            calculateActivePairs={calculateActivePairs}
+            average='Average 7 Days'
+            total='Total 7 Days'
+          />
+          <MidMainTable
+            coins={coins}
+            pairTradingData={mockPairTradingData}
+            calculateActivePairs={calculateActivePairs}
+            average='Average 30 Days'
+            total='Total PL 30 Days'
+          />
         </TableBody>
       </Table>
     </TableContainer>

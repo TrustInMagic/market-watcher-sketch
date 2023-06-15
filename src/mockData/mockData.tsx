@@ -77,14 +77,14 @@ const mockCycle = {
   xMark: 20,
 };
 
-const mockSessionData = {
+const mockPairTradingData = {
   pair: 'BTC/USDT',
   accounts: {
     short: 9,
     long: 22,
   },
-  balanceBTC: 0.665,
-  balanceUSDT: 12300,
+  firstBalance: 0.665,
+  secondBalance: 12300,
   sessions: [
     {
       cycle: 2,
@@ -216,5 +216,5 @@ export {
   mockCandleData,
   mockOrders,
   mockCycle,
-  mockSessionData,
+  mockPairTradingData,
 };
