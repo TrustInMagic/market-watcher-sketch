@@ -1,13 +1,18 @@
-import * as React from 'react';
+import React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
 import { mockOrders, mockCycle } from '@/mockData/mockData';
+import {
+  StyledTableCell,
+  StyledTableRow,
+  StyledTablePLProfitCell,
+  StyledTablePLLossCell,
+} from './OrderTable.config';
 
 interface Order {
   time: string;
@@ -52,50 +57,23 @@ interface Row {
   shortPL: number;
 }
 
-const OrderTable = () => {
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
+const calculateTotalPL = (longPL: number, shortPL: number) => {
+  const localLongPL = longPL || 0;
+  const localShortPL = shortPL || 0;
+  return localLongPL + localShortPL;
+};
 
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&': {
-      backgroundColor: theme.palette.action.hover,
-    },
-    '&:last-child td, &:last-child th': {
-      border: 0,
-    },
-  }));
+const buildDynamicColouredCellOrder = (para: number) => {
+  return para < 0 ? (
+    <StyledTablePLLossCell align='center'>{para || 0}</StyledTablePLLossCell>
+  ) : (
+    <StyledTablePLProfitCell align='center'>
+      {para || 0}
+    </StyledTablePLProfitCell>
+  );
+};
 
-  const StyledTableFirstCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.grey[900],
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
-
-  const StyledTablePLProfitCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.body}`]: {
-      backgroundColor: theme.palette.success.dark,
-      fontSize: 14,
-    },
-  }));
-
-  const StyledTablePLLossCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.body}`]: {
-      backgroundColor: theme.palette.error.dark,
-      fontSize: 14,
-    },
-  }));
-
+const OrderTable: React.FC = ({ pair }: { pair: string }) => {
   const createData = (order: Order, cycle: Cycle): Row => {
     const rowData = {
       time: order.time,
@@ -122,20 +100,14 @@ const OrderTable = () => {
     createData(order, mockCycle)
   );
 
-  const calculateTotalPL = (longPL: number, shortPL: number) => {
-    const localLongPL = longPL || 0
-    const localShortPL = shortPL || 0;
-    return localLongPL + localShortPL;
-  };
-
   return (
     <TableContainer component={Paper}>
       <Table aria-label='spanning table'>
         <TableHead>
           <TableRow>
-            <StyledTableFirstCell align='center' rowSpan={rows.length + 1}>
+            <StyledTableCell align='center' rowSpan={rows.length + 1}>
               Pair ID
-            </StyledTableFirstCell>
+            </StyledTableCell>
             <StyledTableCell align='center' colSpan={6}>
               Account 9 Long S8
             </StyledTableCell>
@@ -170,7 +142,7 @@ const OrderTable = () => {
         <TableBody>
           {rows.map((row, index) => (
             <StyledTableRow key={index}>
-              <StyledTableFirstCell></StyledTableFirstCell>
+              {index === 0 ? <TableCell rowSpan={99}>{pair}</TableCell> : null}
               <TableCell align='center'>{row.time || 'none'}</TableCell>
               <TableCell align='center'>
                 {row.longOrderType || 'none'}
@@ -196,14 +168,8 @@ const OrderTable = () => {
                 {row.shortOrderStatus || 'none'}
               </TableCell>
               <TableCell align='center'>{row.shortPL || 'none'}</TableCell>
-              {calculateTotalPL(row.longPL, row.shortPL) > 0 ? (
-                <StyledTablePLProfitCell align='center'>
-                  {calculateTotalPL(row.longPL, row.shortPL)}
-                </StyledTablePLProfitCell>
-              ) : (
-                <StyledTablePLLossCell align='center'>
-                  {calculateTotalPL(row.longPL, row.shortPL)}
-                </StyledTablePLLossCell>
+              {buildDynamicColouredCellOrder(
+                calculateTotalPL(row.longPL, row.shortPL)
               )}
             </StyledTableRow>
           ))}
