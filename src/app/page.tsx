@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
 import Header from '@/components/Header';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BalanceTable from '@/components/BalanceTable/BalanceTable';
 import CandleChart from '@/components/CandleChart';
 import OrderTable from '@/components/OrderTable/OrderTable';
@@ -10,19 +9,13 @@ import { mockClientId, mockAccounts } from '@/mockData/mockData';
 import Nav from '@/components/Nav';
 import AccountsInterface from '@/components/AccountsInterface';
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
-
 const App = () => {
   const [accounts, setAccounts] = React.useState(mockAccounts);
   const [tradedPair, setTradedPair] = React.useState('BTC/USDT');
   const [openTrades, setOpenTrades] = React.useState(false);
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <>
       <div className='p-2'>
         <Header clientID={mockClientId} />
         <div className='m-2'>
@@ -54,7 +47,7 @@ const App = () => {
           ) : null}
         </div>
       </div>
-    </ThemeProvider>
+    </>
   );
 };
 
