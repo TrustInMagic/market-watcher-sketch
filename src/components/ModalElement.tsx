@@ -21,11 +21,11 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
-  borderRadius: 10
+  borderRadius: 10,
 };
 
 const ModalElement: React.FC = ({
-  open,
+  open,add .
   handleClose,
   modalData,
 }: {
@@ -100,34 +100,34 @@ const ModalElement: React.FC = ({
                   </TableRow>
                 </TableHead>
                 <TableRow>
-                  <TableCell align='center'>Key 1</TableCell>
-                  <TableCell align='center'>Key 2</TableCell>
-                  <TableCell align='center'>Key 1</TableCell>
-                  <TableCell align='center'>Key 2</TableCell>
-                  <TableCell align='center'>Key 1</TableCell>
-                  <TableCell align='center'>Key 2</TableCell>
-                  <TableCell align='center'>Key 1</TableCell>
-                  <TableCell align='center'>Key 2</TableCell>
-                </TableRow> 
-                <TableRow> 
-                  <TableCell align='center'>Key 1</TableCell>
-                  <TableCell align='center'>Key 2</TableCell>
-                  <TableCell align='center'>Key 1</TableCell>
-                  <TableCell align='center'>Key 2</TableCell>
-                  <TableCell align='center'>Key 1</TableCell>
-                  <TableCell align='center'>Key 2</TableCell>
-                  <TableCell align='center'>Key 1</TableCell>
-                  <TableCell align='center'>Key 2</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
                 </TableRow>
-                <TableRow> 
-                  <TableCell align='center'>Key 1</TableCell>
-                  <TableCell align='center'>Key 2</TableCell>
-                  <TableCell align='center'>Key 1</TableCell>
-                  <TableCell align='center'>Key 2</TableCell>
-                  <TableCell align='center'>Key 1</TableCell>
-                  <TableCell align='center'>Key 2</TableCell>
-                  <TableCell align='center'>Key 1</TableCell>
-                  <TableCell align='center'>Key 2</TableCell>
+                <TableRow>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
+                  <TableCell align='center'>data</TableCell>
                 </TableRow>
               </Table>
             </TableContainer>
