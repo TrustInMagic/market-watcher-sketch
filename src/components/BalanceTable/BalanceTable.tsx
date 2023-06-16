@@ -1,8 +1,7 @@
 import React from 'react';
-import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import { StyledTableCell, StyledTableRow } from './BalanceTable.config';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
@@ -13,36 +12,17 @@ interface Account {
   balances: { [key: string]: number };
 }
 
+interface RowData {
+  account: string;
+  [key: string]: number | string;
+}
+
 const BalanceTable = ({ accounts }: { accounts: Account[] }) => {
   const [displayedCurrencies, setDisplayedCurrencies] = React.useState([
     'BTC',
     'USDT',
-    'ADA'
+    'ADA',
   ]);
-
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
-
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&': {
-      backgroundColor: theme.palette.action.hover,
-    },
-    '&:last-child td, &:last-child th': {
-      border: 0,
-    },
-  }));
-
-  interface RowData {
-    account: string;
-    [key: string]: number | string;
-  }
 
   const createData = (account: Account): RowData => {
     const rowData: RowData = { account: `Account ${account.id}` };

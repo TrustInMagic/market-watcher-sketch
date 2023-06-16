@@ -18,7 +18,11 @@ const CandleChart = ({
   const chartRef = useRef<HTMLDivElement>(null);
 
   const fetchCandleRawData = async () => {
-    return await mockCandleData;
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(mockCandleData);
+      }, 2000); 
+    });
   };
 
   const buildCandleChart = React.useCallback(async () => {
@@ -34,8 +38,6 @@ const CandleChart = ({
     defaultOptionsCopy.series[3].data = calculateMA(20, processedData);
     defaultOptionsCopy.series[4].data = calculateMA(30, processedData);
 
-    console.log(defaultOptionsCopy);
-
     return defaultOptionsCopy;
   }, [pair]);
 
@@ -45,7 +47,7 @@ const CandleChart = ({
       const chart: ECharts = init(chartRef.current, theme);
 
       // Add chart resize listener
-      const resizeChart = (chart) => {
+      const resizeChart = () => {
         chart.resize();
       };
       window.addEventListener('resize', resizeChart);
