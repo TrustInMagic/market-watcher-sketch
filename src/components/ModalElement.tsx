@@ -25,7 +25,7 @@ const style = {
 };
 
 const ModalElement: React.FC = ({
-  open,add .
+  open,
   handleClose,
   modalData,
 }: {

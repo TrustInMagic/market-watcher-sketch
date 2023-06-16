@@ -45,7 +45,7 @@ const App = () => {
             Start Trades
           </Button>
         </div>
-        <div className='flex flex-col mt-10 gap-2 text-lg'>
+        <div className='flex flex-col mt-10 mb-10 gap-2 text-lg'>
           {openTrades ? (
             <>
               <span className='self-center font-bold'>My Trades</span>
