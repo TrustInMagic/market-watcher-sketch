@@ -77,7 +77,7 @@ const CandleChart = ({
     }
   }, [chartLoading, theme]);
 
-  return <div ref={chartRef} className='w-full h-full pt-4' />;
+  return <div ref={chartRef} className='w-full h-full bg-[#202020]' />;
 }
 
 export default CandleChart;

@@ -13,6 +13,7 @@ import {
   StyledTablePLProfitCell,
   StyledTablePLLossCell,
 } from './OrderTable.config';
+import StatusBadge from '../StatusBadge';
 
 interface Order {
   time: string;
@@ -156,7 +157,9 @@ const OrderTable: React.FC = ({ pair }: { pair: string }) => {
               </TableCell>
               <TableCell align='center'>{row.longPL || 'none'}</TableCell>
               <TableCell align='center'>{row.markPrice || 'none'}</TableCell>
-              <TableCell align='center'>{row.status || 'none'}</TableCell>
+              <TableCell align='center'>
+                <StatusBadge status='completed'>{row.status || 'none'}</StatusBadge>
+              </TableCell>
               <TableCell align='center'>{row.xMark || 'none'}</TableCell>
               <TableCell align='center'>
                 {row.shortOrderType || 'none'}

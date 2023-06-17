@@ -16,6 +16,7 @@ import {
 import { mockPairTradingData } from '@/mockData/mockData';
 import Button from '@mui/material/Button';
 import MidMainTable from '../MidMainTable/MidMainTable';
+import StatusBadge from '../StatusBadge';
 
 interface SessionData {
   cycle: number;
@@ -201,7 +202,7 @@ const MainTable: React.FC = () => {
                 {row.cycle || 'none'}
               </StyledTableCell>
               <StyledTableCell align='center' colSpan={2}>
-                {row.status || 'none'}
+                <StatusBadge status='progress'>{row.status || 'none'}</StatusBadge>
               </StyledTableCell>
               <StyledTableCell align='center'>
                 {row.duration || 'none'}

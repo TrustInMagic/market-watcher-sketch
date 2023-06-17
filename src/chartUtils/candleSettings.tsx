@@ -2,7 +2,7 @@ const upColor = '#00da3c';
 const upBorderColor = '#008F28';
 const downColor = '#ec0000';
 const downBorderColor = '#8A0000';
-const backgroundColor = 'rgb(15 23 42)'
+const backgroundColor = '#121212';
 
 const options = {
   backgroundColor: backgroundColor,

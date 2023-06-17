@@ -1,12 +1,23 @@
+'use client';
 import './globals.css';
-import {Inter} from 'next/font/google';
-import ThemeProvider from '../theme';
+import { Inter } from 'next/font/google';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
-const inter = Inter({subsets: ['latin']});
+const inter = Inter({ subsets: ['latin'] });
 
-export const metadata = {
-  title: 'Market Watcher',
-};
+// had to remove the metadata export because of client rendering
+// which is needed in order for ThemeProvider's useContext to work
+
+// export const metadata = {
+//   title: 'Market Watcher',
+// };
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 export default function RootLayout({
   children,
@@ -15,10 +26,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body
-        className={`${inter.className} bg-slate-900 text-slate-100 mx-auto p-4 h-screen`}
-      >
-        <ThemeProvider>
+      <body className={`${inter.className} mx-auto p-4 h-screen`}>
+        <ThemeProvider theme={darkTheme}>
+          <CssBaseline />
           {children}
         </ThemeProvider>
       </body>

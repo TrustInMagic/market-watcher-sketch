@@ -3,6 +3,7 @@ import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CandleChart from '@/components/CandleChart';
 import { useSearchParams } from 'next/navigation';
+import ButtonNav from '@/components/ButtonNav';
 import Nav from '@/components/Nav';
 import MainTable from '@/components/MainTable/MainTable';
 
@@ -20,13 +21,14 @@ const MainView = () => {
     <ThemeProvider theme={darkTheme}>
       <div className='p-2'>
         <div className='m-2'>
-          <Nav location='main-view'/>
+          <Nav/>
+          <ButtonNav location='main-view' />
         </div>
         <div className='h-96'>
           <CandleChart theme='dark' pair={pair} />
         </div>
         <div className='mt-10 mb-10'>
-          <MainTable/>
+          <MainTable />
         </div>
       </div>
     </ThemeProvider>
